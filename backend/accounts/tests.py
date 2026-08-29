@@ -17,7 +17,7 @@ class AuthenticationAPITests(APITestCase):
             role=User.Role.MEMBER,
         )
 
-    def test_login_returns_token_and_user(self):
+    def test_login_returns_jwt_pair_and_user(self):
         response = self.client.post(
             reverse("auth-login"),
             {
@@ -28,7 +28,8 @@ class AuthenticationAPITests(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn("token", response.data)
+        self.assertIn("access", response.data)
+        self.assertIn("refresh", response.data)
         self.assertEqual(
             response.data["user"]["username"],
             self.user.username,
@@ -62,14 +63,6 @@ class AuthenticationAPITests(APITestCase):
         )
 
     def test_authenticated_user_can_read_profile(self):
-        self.client.force_authenticate(user=self.user)
-
-        response = self.client.get(reverse("auth-me"))
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["username"], self.user.username)
-
-    def test_logout_deletes_token(self):
         login_response = self.client.post(
             reverse("auth-login"),
             {
@@ -78,21 +71,94 @@ class AuthenticationAPITests(APITestCase):
             },
             format="json",
         )
-        token = login_response.data["token"]
 
         self.client.credentials(
-            HTTP_AUTHORIZATION=f"Token {token}",
+            HTTP_AUTHORIZATION=(
+                f"Bearer {login_response.data['access']}"
+            ),
         )
-        logout_response = self.client.post(reverse("auth-logout"))
+
+        response = self.client.get(reverse("auth-me"))
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["username"], self.user.username)
+
+    def test_refresh_token_creates_new_access_token(self):
+        login_response = self.client.post(
+            reverse("auth-login"),
+            {
+                "username": self.user.username,
+                "password": self.password,
+            },
+            format="json",
+        )
+
+        response = self.client.post(
+            reverse("auth-token-refresh"),
+            {
+                "refresh": login_response.data[
+                    "refresh"
+                ],
+            },
+            format="json",
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+        )
+        self.assertIn("access", response.data)
+        self.assertIn("refresh", response.data)
+
+    def test_logout_blacklists_refresh_token(self):
+        login_response = self.client.post(
+            reverse("auth-login"),
+            {
+                "username": self.user.username,
+                "password": self.password,
+            },
+            format="json",
+        )
+        access = login_response.data["access"]
+        refresh = login_response.data["refresh"]
+
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f"Bearer {access}",
+        )
+        logout_response = self.client.post(
+            reverse("auth-logout"),
+            {
+                "refresh": refresh,
+            },
+            format="json",
+        )
 
         self.assertEqual(
             logout_response.status_code,
             status.HTTP_200_OK,
         )
 
-        profile_response = self.client.get(reverse("auth-me"))
+        self.client.credentials()
+        refresh_response = self.client.post(
+            reverse("auth-token-refresh"),
+            {
+                "refresh": refresh,
+            },
+            format="json",
+        )
 
         self.assertEqual(
-            profile_response.status_code,
+            refresh_response.status_code,
+            status.HTTP_401_UNAUTHORIZED,
+        )
+
+    def test_legacy_token_header_is_rejected(self):
+        response = self.client.get(
+            reverse("auth-me"),
+            HTTP_AUTHORIZATION="Token ancien-token",
+        )
+
+        self.assertEqual(
+            response.status_code,
             status.HTTP_401_UNAUTHORIZED,
         )

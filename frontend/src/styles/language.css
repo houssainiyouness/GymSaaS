@@ -1,0 +1,66 @@
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  direction: ltr;
+  flex: 0 0 auto;
+}
+
+.language-switcher button {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 10px;
+  border: 1px solid rgba(127, 137, 149, 0.28);
+  border-radius: 9px;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.04);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+
+.language-switcher button:hover {
+  border-color: rgba(255, 90, 31, .55);
+  background: rgba(255, 90, 31, .08);
+}
+
+.language-switcher button.active {
+  border-color: #ff5a1f;
+  background: rgba(255, 90, 31, .14);
+}
+
+.language-switcher button:active {
+  transform: scale(.97);
+}
+
+.language-switcher small {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.public-navbar .language-switcher {
+  color: #fff;
+}
+
+.client-topbar .language-switcher,
+.app-topbar .language-switcher {
+  color: #d6dde5;
+}
+
+@media (max-width: 760px) {
+  .language-switcher button {
+    min-height: 34px;
+    padding: 0 7px;
+    font-size: 10px;
+  }
+
+  .language-switcher button small {
+    display: none;
+  }
+}

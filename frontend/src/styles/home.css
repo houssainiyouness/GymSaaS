@@ -1,0 +1,2101 @@
+.public-site {
+  overflow-x: hidden;
+  background: #fff;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.public-navbar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+
+  transition:
+    background .2s ease,
+    box-shadow .2s ease;
+}
+
+
+.public-navbar.compact {
+  background:
+    rgba(12, 22, 34, .96);
+
+  box-shadow:
+    0 10px 30px
+    rgba(0, 0, 0, .16);
+
+  backdrop-filter: blur(14px);
+}
+
+
+.public-nav-inner {
+  width:
+    min(
+      var(--container),
+      calc(100% - 40px)
+    );
+
+  min-height: 82px;
+
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+}
+
+
+.public-navbar.compact
+.public-nav-inner {
+  min-height: 68px;
+}
+
+
+.brand {
+  font-size: 24px;
+  font-weight: 950;
+  letter-spacing: -.04em;
+  text-decoration: none;
+}
+
+
+.brand span {
+  color: var(--orange);
+}
+
+
+.public-brand {
+  color: #fff;
+}
+
+
+.public-nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: 24px;
+}
+
+
+.public-nav-links a {
+  color:
+    rgba(255, 255, 255, .86);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+
+.public-nav-links a:hover {
+  color: #fff;
+}
+
+
+.public-nav-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+.nav-login {
+  color: #fff;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  text-decoration: none;
+}
+
+
+.mobile-menu-button,
+.mobile-login-link,
+.mobile-join-link {
+  display: none;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.public-hero {
+  min-height: 760px;
+
+  position: relative;
+
+  display: grid;
+  align-items: end;
+
+  color: #fff;
+
+  background: var(--navy);
+}
+
+
+.public-hero-image {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+
+.public-hero-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 14, 22, .88)
+      0%,
+      rgba(7, 14, 22, .60)
+      48%,
+      rgba(7, 14, 22, .20)
+      100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(7, 14, 22, .52),
+      transparent 46%
+    );
+}
+
+
+.public-hero-content {
+  position: relative;
+
+  z-index: 1;
+
+  width:
+    min(
+      var(--container),
+      calc(100% - 40px)
+    );
+
+  margin: auto;
+
+  padding:
+    160px 0 84px;
+}
+
+
+.hero-kicker {
+  display: inline-flex;
+
+  padding: 8px 12px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, .28);
+
+  border-radius: 999px;
+
+  background:
+    rgba(0, 0, 0, .18);
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .15em;
+}
+
+
+.public-hero h1 {
+  max-width: 760px;
+
+  margin:
+    22px 0 18px;
+
+  font-size:
+    clamp(
+      44px,
+      6vw,
+      78px
+    );
+
+  line-height: .98;
+
+  letter-spacing: -.055em;
+}
+
+
+.public-hero p {
+  max-width: 650px;
+
+  margin: 0;
+
+  color:
+    rgba(255, 255, 255, .82);
+
+  font-size: 18px;
+
+  line-height: 1.65;
+}
+
+
+.hero-actions {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 30px;
+}
+
+
+.hero-proof {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap:
+    12px 28px;
+
+  margin-top: 48px;
+
+  color:
+    rgba(255, 255, 255, .82);
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+
+.hero-proof span::before {
+  content: "•";
+
+  margin-right: 8px;
+
+  color: var(--orange);
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.public-section {
+  width:
+    min(
+      var(--container),
+      calc(100% - 40px)
+    );
+
+  margin: auto;
+
+  padding:
+    96px 0;
+}
+
+
+.section-intro-row {
+  display: grid;
+
+  grid-template-columns:
+    1.15fr .85fr;
+
+  align-items: end;
+
+  gap: 60px;
+
+  margin:
+    12px 0 38px;
+}
+
+
+.section-intro-row h2,
+.coaching-copy h2,
+.gym-preview-inner h2,
+.contact-copy h2 {
+  margin: 0;
+
+  color: var(--navy);
+
+  font-size:
+    clamp(
+      34px,
+      4.2vw,
+      58px
+    );
+
+  line-height: 1.02;
+
+  letter-spacing: -.045em;
+}
+
+
+.section-intro-row p,
+.coaching-copy p,
+.gym-preview-inner p,
+.contact-copy p {
+  margin: 0;
+
+  color: var(--muted);
+
+  line-height: 1.7;
+}
+
+
+/* =====================================================
+   ACTIVITÉS
+===================================================== */
+
+.activity-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      1fr
+    );
+
+  gap: 16px;
+}
+
+
+.activity-card {
+  min-height: 245px;
+
+  padding: 28px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:
+    var(--radius);
+
+  background: #fff;
+
+  box-shadow:
+    var(--shadow-sm);
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease;
+}
+
+
+.activity-card:hover {
+  transform:
+    translateY(-4px);
+
+  border-color:
+    #ffc5ad;
+}
+
+
+.activity-card > span {
+  width: 38px;
+  height: 38px;
+
+  display: inline-grid;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: var(--orange);
+
+  background:
+    var(--orange-soft);
+
+  font-size: 12px;
+
+  font-weight: 900;
+}
+
+
+.activity-card h3 {
+  margin:
+    54px 0 10px;
+
+  font-size: 24px;
+}
+
+
+.activity-card p {
+  margin: 0;
+
+  color: var(--muted);
+
+  line-height: 1.6;
+}
+
+
+/* =====================================================
+   COACHING
+===================================================== */
+
+.coaching-section {
+  background:
+    var(--navy);
+
+  color: #fff;
+}
+
+
+.coaching-inner {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  align-items: center;
+
+  gap: 70px;
+}
+
+
+.coaching-copy h2 {
+  margin:
+    12px 0 18px;
+
+  color: #fff;
+}
+
+
+.coaching-copy p {
+  margin-bottom: 26px;
+
+  color: #aeb9c4;
+}
+
+
+.coaching-steps {
+  display: grid;
+
+  gap: 12px;
+}
+
+
+.coaching-step {
+  display: grid;
+
+  grid-template-columns:
+    52px 1fr;
+
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 20px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, .10);
+
+  border-radius: 14px;
+
+  background:
+    rgba(255, 255, 255, .035);
+}
+
+
+.coaching-step span {
+  color: var(--orange);
+
+  font-size: 12px;
+
+  font-weight: 900;
+}
+
+
+.coaching-step strong {
+  font-size: 18px;
+}
+
+
+.coaching-actions {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 12px;
+}
+
+
+.btn-coach-outline {
+  min-height: 48px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  padding:
+    0 18px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, .24);
+
+  border-radius: 12px;
+
+  background:
+    rgba(255, 255, 255, .05);
+
+  color: #fff;
+
+  font: inherit;
+
+  font-size: 13px;
+
+  font-weight: 850;
+
+  cursor: pointer;
+
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    border-color .2s ease;
+}
+
+
+.btn-coach-outline:hover {
+  transform:
+    translateY(-2px);
+
+  background:
+    rgba(255, 255, 255, .10);
+
+  border-color:
+    rgba(255, 255, 255, .50);
+}
+
+
+/* =====================================================
+   FORMULES
+===================================================== */
+
+.public-plan-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      1fr
+    );
+
+  gap: 18px;
+}
+
+
+.public-plan-card {
+  padding: 28px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:
+    var(--radius-lg);
+
+  background: #fff;
+
+  box-shadow:
+    var(--shadow-sm);
+}
+
+
+.plan-duration {
+  display: inline-flex;
+
+  padding:
+    7px 10px;
+
+  border-radius: 999px;
+
+  color:
+    var(--orange-dark);
+
+  background:
+    var(--orange-soft);
+
+  font-size: 12px;
+
+  font-weight: 900;
+}
+
+
+.public-plan-card h3 {
+  margin:
+    24px 0 12px;
+
+  font-size: 28px;
+}
+
+
+.plan-price {
+  display: flex;
+
+  align-items: baseline;
+
+  gap: 8px;
+}
+
+
+.plan-price strong {
+  color: var(--navy);
+
+  font-size: 44px;
+}
+
+
+.plan-price span {
+  color: var(--muted);
+
+  font-weight: 800;
+}
+
+
+.public-plan-card p {
+  min-height: 52px;
+
+  color: var(--muted);
+
+  line-height: 1.6;
+}
+
+
+.plans-api-notice,
+.public-state-card {
+  padding: 28px;
+
+  border:
+    1px dashed
+    #f3b89f;
+
+  border-radius:
+    var(--radius);
+
+  background:
+    #fff8f4;
+}
+
+
+.plans-api-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+}
+
+
+.plans-api-notice h3 {
+  margin:
+    8px 0;
+
+  font-size: 24px;
+}
+
+
+.plans-api-notice p {
+  margin: 0;
+
+  color: var(--muted);
+
+  line-height: 1.6;
+}
+
+
+.public-state-card.error {
+  color: var(--danger);
+
+  border-color:
+    #f4c0b9;
+
+  background:
+    #fff3f1;
+}
+
+
+/* =====================================================
+   SALLE
+===================================================== */
+
+.gym-preview-section {
+  background:
+    #f4f6f8;
+}
+
+
+.gym-preview-inner {
+  display: grid;
+
+  grid-template-columns:
+    1.2fr .8fr;
+
+  align-items: center;
+
+  gap: 70px;
+}
+
+
+.gym-preview-inner h2 {
+  margin:
+    10px 0 18px;
+}
+
+
+.gym-missing-api {
+  padding: 28px;
+
+  border-radius:
+    var(--radius);
+
+  color: #fff;
+
+  background:
+    var(--navy);
+
+  box-shadow:
+    var(--shadow);
+}
+
+
+.gym-missing-api strong,
+.gym-missing-api span {
+  display: block;
+}
+
+
+.gym-missing-api span {
+  margin-top: 14px;
+
+  color: #aeb9c4;
+
+  line-height: 1.6;
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.contact-section {
+  display: grid;
+
+  grid-template-columns:
+    .8fr 1.2fr;
+
+  align-items: start;
+
+  gap: 70px;
+}
+
+
+.contact-copy h2 {
+  margin:
+    10px 0 18px;
+}
+
+
+.contact-form {
+  padding: 30px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:
+    var(--radius-lg);
+
+  background: #fff;
+
+  box-shadow:
+    var(--shadow-sm);
+}
+
+
+.form-grid {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 18px;
+}
+
+
+.field-wrap {
+  display: grid;
+
+  gap: 7px;
+}
+
+
+.field-label {
+  display: block;
+
+  margin:
+    0 0 7px;
+
+  font-size: 13px;
+
+  font-weight: 800;
+}
+
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid
+    #d8dee4;
+
+  border-radius: 11px;
+
+  padding:
+    12px 13px;
+
+  background: #fff;
+
+  color: var(--ink);
+}
+
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color:
+    var(--orange);
+
+  outline:
+    3px solid
+    rgba(255, 90, 31, .10);
+}
+
+
+.contact-form textarea {
+  resize: vertical;
+
+  margin-bottom: 18px;
+}
+
+
+.contact-form .form-grid {
+  margin:
+    18px 0;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.public-footer {
+  color: #d8e0e7;
+
+  background:
+    #08111a;
+}
+
+
+.footer-grid {
+  width:
+    min(
+      var(--container),
+      calc(100% - 40px)
+    );
+
+  margin: auto;
+
+  padding:
+    64px 0 36px;
+
+  display: grid;
+
+  grid-template-columns:
+    1.5fr
+    repeat(
+      3,
+      1fr
+    );
+
+  gap: 44px;
+}
+
+
+.footer-grid > div {
+  display: grid;
+
+  align-content: start;
+
+  gap: 10px;
+}
+
+
+.footer-grid strong {
+  margin-bottom: 6px;
+
+  color: #fff;
+}
+
+
+.footer-grid a,
+.footer-grid span {
+  color: #9aa8b5;
+
+  font-size: 14px;
+
+  line-height: 1.55;
+
+  text-decoration: none;
+}
+
+
+.footer-grid p {
+  max-width: 360px;
+
+  color: #9aa8b5;
+
+  line-height: 1.7;
+}
+
+
+.footer-brand {
+  color: #fff;
+}
+
+
+.footer-bottom {
+  width:
+    min(
+      var(--container),
+      calc(100% - 40px)
+    );
+
+  margin: auto;
+
+  padding:
+    20px 0 30px;
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  gap: 20px;
+
+  border-top:
+    1px solid
+    rgba(255, 255, 255, .09);
+
+  color: #748392;
+
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   MODAL COACHS
+===================================================== */
+
+.coaches-modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: grid;
+
+  place-items: center;
+
+  padding: 26px;
+
+  background:
+    rgba(5, 11, 17, .72);
+
+  backdrop-filter:
+    blur(8px);
+
+  animation:
+    coachesBackdropIn
+    .18s ease;
+}
+
+
+@keyframes coachesBackdropIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+.coaches-modal {
+  width:
+    min(
+      980px,
+      100%
+    );
+
+  max-height:
+    calc(
+      100vh - 52px
+    );
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, .10);
+
+  border-radius: 24px;
+
+  background:
+    #f5f7f8;
+
+  box-shadow:
+    0 35px 100px
+    rgba(0, 0, 0, .45);
+
+  animation:
+    coachesModalIn
+    .22s ease;
+}
+
+
+@keyframes coachesModalIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(18px)
+      scale(.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* Header modal */
+
+.coaches-modal-header {
+  flex:
+    0 0 auto;
+
+  display: flex;
+
+  align-items:
+    flex-start;
+
+  justify-content:
+    space-between;
+
+  gap: 30px;
+
+  padding:
+    24px 28px;
+
+  border-bottom:
+    1px solid
+    #e1e6ea;
+
+  background: #fff;
+}
+
+
+.coaches-modal-kicker {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #ff5a1f;
+
+  font-size: 9px;
+
+  font-weight: 950;
+
+  letter-spacing: .16em;
+}
+
+
+.coaches-modal-header h2 {
+  margin: 0;
+
+  color: #0b1620;
+
+  font-size:
+    clamp(
+      27px,
+      3vw,
+      36px
+    );
+
+  line-height: 1;
+
+  letter-spacing: -.04em;
+}
+
+
+.coaches-modal-header p {
+  margin:
+    8px 0 0;
+
+  color: #7b8690;
+
+  font-size: 12px;
+}
+
+
+.coaches-modal-close {
+  width: 42px;
+  height: 42px;
+
+  flex:
+    0 0 42px;
+
+  display: grid;
+
+  place-items: center;
+
+  border:
+    1px solid
+    #dce2e7;
+
+  border-radius: 12px;
+
+  background:
+    #f8f9fa;
+
+  color: #16212b;
+
+  font: inherit;
+
+  font-size: 25px;
+
+  cursor: pointer;
+
+  transition:
+    background .18s ease,
+    color .18s ease;
+}
+
+
+.coaches-modal-close:hover {
+  background:
+    #ff5a1f;
+
+  color: #fff;
+}
+
+
+/* contenu */
+
+.coaches-modal-content {
+  flex: 1;
+
+  min-height: 0;
+
+  overflow-y: auto;
+
+  padding: 24px;
+}
+
+
+.coaches-modal-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap: 17px;
+}
+
+
+/* carte coach */
+
+.modal-coach-card {
+  overflow: hidden;
+
+  min-width: 0;
+
+  border:
+    1px solid
+    #dfe4e8;
+
+  border-radius: 17px;
+
+  background: #fff;
+
+  box-shadow:
+    0 8px 25px
+    rgba(12, 22, 32, .06);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+
+.modal-coach-card:hover {
+  transform:
+    translateY(-4px);
+
+  box-shadow:
+    0 16px 36px
+    rgba(12, 22, 32, .11);
+}
+
+
+/* photo */
+
+.modal-coach-photo {
+  height: 245px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background:
+    #17232e;
+}
+
+
+.modal-coach-photo img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform .35s ease;
+}
+
+
+.modal-coach-card:hover
+.modal-coach-photo img {
+  transform:
+    scale(1.035);
+}
+
+
+.modal-coach-placeholder {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+
+  place-items: center;
+
+  background:
+    radial-gradient(
+      circle
+      at 75% 20%,
+      rgba(255, 90, 31, .20),
+      transparent 34%
+    ),
+    linear-gradient(
+      145deg,
+      #101c27,
+      #2b3f50
+    );
+
+  color: #fff;
+
+  font-size: 54px;
+
+  font-weight: 950;
+}
+
+
+/* disponibilité */
+
+.modal-coach-status {
+  position: absolute;
+
+  left: 13px;
+  bottom: 13px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding:
+    7px 10px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(7, 14, 20, .82);
+
+  color: #fff;
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  backdrop-filter:
+    blur(8px);
+}
+
+
+.modal-coach-status i {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background:
+    #38d982;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(56, 217, 130, .15);
+}
+
+
+/* corps */
+
+.modal-coach-body {
+  padding: 18px;
+}
+
+
+.modal-coach-specialty {
+  display: block;
+
+  color: #ff5a1f;
+
+  font-size: 9px;
+
+  font-weight: 950;
+
+  letter-spacing: .11em;
+
+  text-transform:
+    uppercase;
+}
+
+
+.modal-coach-body h3 {
+  margin:
+    6px 0 10px;
+
+  color: #0c1721;
+
+  font-size: 20px;
+
+  line-height: 1.1;
+
+  letter-spacing: -.025em;
+}
+
+
+.modal-coach-bio {
+  display: -webkit-box;
+
+  overflow: hidden;
+
+  min-height: 43px;
+
+  margin: 0;
+
+  color: #707b85;
+
+  font-size: 11px;
+
+  line-height: 1.65;
+
+  -webkit-box-orient:
+    vertical;
+
+  -webkit-line-clamp: 2;
+}
+
+
+.modal-coach-bio.expanded {
+  display: block;
+
+  overflow: visible;
+
+  min-height: auto;
+}
+
+
+/* bouton carte */
+
+.modal-coach-more {
+  width: 100%;
+
+  min-height: 42px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+
+  margin-top: 16px;
+
+  padding:
+    0 12px;
+
+  border:
+    1px solid
+    #dfe4e8;
+
+  border-radius: 10px;
+
+  background:
+    #f8f9fa;
+
+  color: #101b25;
+
+  font: inherit;
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  cursor: pointer;
+
+  transition:
+    background .18s ease,
+    border-color .18s ease;
+}
+
+
+.modal-coach-more:hover {
+  border-color:
+    #ffb496;
+
+  background:
+    #fff4ef;
+}
+
+
+.modal-coach-more b {
+  color: #ff5a1f;
+
+  font-size: 15px;
+}
+
+
+/* états */
+
+.coaches-modal-state {
+  display: grid;
+
+  gap: 15px;
+
+  justify-items: center;
+
+  padding: 40px;
+
+  border:
+    1px dashed
+    #d6dde2;
+
+  border-radius: 14px;
+
+  background: #fff;
+
+  color: #6d7882;
+
+  text-align: center;
+}
+
+
+.coaches-modal-state.error {
+  color: #b42318;
+
+  border-color:
+    #efc2bd;
+
+  background:
+    #fff5f4;
+}
+
+
+.coaches-modal-retry {
+  min-height: 39px;
+
+  padding:
+    0 14px;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  background:
+    #ff5a1f;
+
+  color: #fff;
+
+  font: inherit;
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+
+/* footer modal */
+
+.coaches-modal-footer {
+  flex:
+    0 0 auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+
+  gap: 20px;
+
+  padding:
+    16px 28px;
+
+  border-top:
+    1px solid
+    #e1e6ea;
+
+  background: #fff;
+}
+
+
+.coaches-modal-footer > span {
+  color: #7a858f;
+
+  font-size: 10px;
+}
+
+
+.coaches-modal-return {
+  min-height: 42px;
+
+  padding:
+    0 15px;
+
+  border:
+    1px solid
+    #ff5a1f;
+
+  border-radius: 10px;
+
+  background:
+    #ff5a1f;
+
+  color: #fff;
+
+  font: inherit;
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  cursor: pointer;
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease;
+}
+
+
+.coaches-modal-return:hover {
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(255, 90, 31, .22);
+}
+
+
+/* =====================================================
+   TABLETTE
+===================================================== */
+
+@media (
+  max-width: 980px
+) {
+  .public-nav-links {
+    gap: 14px;
+  }
+
+
+  .public-nav-links a {
+    font-size: 13px;
+  }
+
+
+  .activity-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        1fr
+      );
+  }
+
+
+  .public-plan-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        1fr
+      );
+  }
+
+
+  .coaching-inner,
+  .gym-preview-inner,
+  .contact-section {
+    grid-template-columns:
+      1fr;
+
+    gap: 36px;
+  }
+
+
+  .coaches-modal-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+
+  .footer-grid {
+    grid-template-columns:
+      1.3fr
+      1fr
+      1fr;
+  }
+
+
+  .footer-grid
+  > div:last-child {
+    grid-column:
+      2 / span 2;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (
+  max-width: 760px
+) {
+  .public-nav-inner {
+    width:
+      min(
+        100% - 28px,
+        var(--container)
+      );
+
+    min-height: 70px;
+  }
+
+
+  .public-nav-actions
+  .nav-login,
+  .public-nav-actions
+  > .btn {
+    display: none;
+  }
+
+
+  .mobile-menu-button {
+    width: 46px;
+    height: 46px;
+
+    display: grid;
+
+    place-content: center;
+
+    gap: 5px;
+
+    border:
+      1px solid
+      rgba(255, 255, 255, .18);
+
+    border-radius: 12px;
+
+    background:
+      rgba(255, 255, 255, .08);
+  }
+
+
+  .mobile-menu-button span {
+    width: 20px;
+    height: 2px;
+
+    background: #fff;
+  }
+
+
+  .public-nav-links {
+    position: fixed;
+
+    inset:
+      70px 14px auto;
+
+    display: none;
+
+    padding: 18px;
+
+    border-radius: 16px;
+
+    background:
+      rgba(12, 22, 34, .98);
+
+    box-shadow:
+      0 20px 50px
+      rgba(0, 0, 0, .28);
+  }
+
+
+  .public-nav-links.is-open {
+    display: grid;
+  }
+
+
+  .public-nav-links a {
+    min-height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding:
+      0 8px;
+  }
+
+
+  .mobile-login-link,
+  .mobile-join-link {
+    display:
+      flex !important;
+  }
+
+
+  .mobile-join-link {
+    justify-content: center;
+  }
+
+
+  .public-hero {
+    min-height: 690px;
+  }
+
+
+  .public-hero-content {
+    width:
+      calc(100% - 30px);
+
+    padding:
+      135px 0 48px;
+  }
+
+
+  .public-section {
+    width:
+      calc(100% - 30px);
+
+    padding:
+      68px 0;
+  }
+
+
+  .section-intro-row {
+    grid-template-columns:
+      1fr;
+
+    gap: 16px;
+
+    margin-bottom: 28px;
+  }
+
+
+  .activity-grid,
+  .public-plan-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .coaching-actions {
+    flex-direction:
+      column;
+  }
+
+
+  .coaching-actions > * {
+    width: 100%;
+  }
+
+
+  .form-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .contact-form {
+    padding: 20px;
+  }
+
+
+  .footer-grid {
+    width:
+      calc(100% - 30px);
+
+    grid-template-columns:
+      1fr 1fr;
+
+    gap:
+      34px 24px;
+  }
+
+
+  .footer-grid
+  > div:last-child {
+    grid-column: auto;
+  }
+
+
+  .footer-grid
+  > div:first-child {
+    grid-column:
+      1 / -1;
+  }
+
+
+  .footer-bottom {
+    width:
+      calc(100% - 30px);
+
+    flex-direction: column;
+  }
+}
+
+
+/* =====================================================
+   MODAL MOBILE
+===================================================== */
+
+@media (
+  max-width: 620px
+) {
+  .coaches-modal-backdrop {
+    padding: 0;
+
+    align-items: end;
+  }
+
+
+  .coaches-modal {
+    width: 100%;
+
+    max-height: 92vh;
+
+    border-radius:
+      22px 22px 0 0;
+  }
+
+
+  .coaches-modal-header {
+    padding:
+      20px;
+  }
+
+
+  .coaches-modal-content {
+    padding: 16px;
+  }
+
+
+  .coaches-modal-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .modal-coach-photo {
+    height: 330px;
+  }
+
+
+  .coaches-modal-footer {
+    padding:
+      14px 16px;
+  }
+}
+
+
+/* =====================================================
+   PETIT MOBILE
+===================================================== */
+
+@media (
+  max-width: 420px
+) {
+  .public-brand {
+    font-size: 21px;
+  }
+
+
+  .public-hero h1 {
+    font-size: 40px;
+  }
+
+
+  .section-intro-row h2,
+  .coaching-copy h2,
+  .gym-preview-inner h2,
+  .contact-copy h2 {
+    font-size: 36px;
+  }
+
+
+  .footer-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .footer-grid
+  > div:first-child {
+    grid-column: auto;
+  }
+
+
+  .coaches-modal-footer {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+
+  .coaches-modal-return {
+    width: 100%;
+  }
+}
+/* =====================================================
+   LANGUE + RTL SITE PUBLIC
+===================================================== */
+
+html[dir="rtl"] .public-site,
+html[dir="rtl"] .public-navbar,
+html[dir="rtl"] .public-footer,
+html[dir="rtl"] .public-coaches-page {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .public-nav-inner,
+html[dir="rtl"] .public-nav-links,
+html[dir="rtl"] .public-nav-actions,
+html[dir="rtl"] .section-intro-row,
+html[dir="rtl"] .coaching-inner,
+html[dir="rtl"] .gym-preview-inner,
+html[dir="rtl"] .contact-section,
+html[dir="rtl"] .footer-grid {
+  direction: rtl;
+}
+
+html[dir="rtl"] .public-nav-actions .language-switcher {
+  direction: ltr;
+}
+
+html[dir="rtl"] .public-hero-content,
+html[dir="rtl"] .section-intro-row,
+html[dir="rtl"] .coaching-copy,
+html[dir="rtl"] .contact-copy,
+html[dir="rtl"] .contact-form,
+html[dir="rtl"] .footer-grid,
+html[dir="rtl"] .footer-bottom {
+  text-align: right;
+}
+
+html[dir="rtl"] .contact-form input:not([type="email"]):not([type="tel"]),
+html[dir="rtl"] .contact-form textarea {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .contact-form input[type="email"],
+html[dir="rtl"] .contact-form input[type="tel"] {
+  direction: ltr;
+}
+
+html[dir="rtl"] .hero-actions,
+html[dir="rtl"] .coaching-actions,
+html[dir="rtl"] .public-coaches-cta-actions {
+  direction: rtl;
+}
+
+html[dir="rtl"] .public-coaches-hero-inner,
+html[dir="rtl"] .public-coaches-toolbar,
+html[dir="rtl"] .public-coaches-filters,
+html[dir="rtl"] .public-coach-card-meta,
+html[dir="rtl"] .public-coaches-cta-inner {
+  direction: rtl;
+}
+
+html[dir="rtl"] .public-coaches-search-wrap input {
+  text-align: right;
+  padding-right: 45px;
+  padding-left: 46px;
+}
+
+html[dir="rtl"] .public-coaches-search-icon {
+  left: auto;
+  right: 16px;
+}
+
+html[dir="rtl"] .public-coaches-clear-search {
+  right: auto;
+  left: 11px;
+}
+
+@media (max-width: 760px) {
+  .public-nav-actions .language-switcher button {
+    padding-inline: 6px;
+  }
+}

@@ -5,7 +5,13 @@ from django.db.models import Sum
 from django.utils import timezone
 from rest_framework import serializers
 
-from .models import Member, MembershipPlan, Payment, Subscription
+from .models import (
+    Member,
+    MembershipPlan,
+    Payment,
+    Subscription,
+)
+
 
 class MembershipPlanSerializer(serializers.ModelSerializer):
     class Meta:
@@ -65,6 +71,7 @@ class MembershipPlanSerializer(serializers.ModelSerializer):
 
         return value
 
+
 class MemberSerializer(serializers.ModelSerializer):
     full_name = serializers.SerializerMethodField()
     username = serializers.CharField(
@@ -87,26 +94,34 @@ class MemberSerializer(serializers.ModelSerializer):
             "birth_date",
             "address",
             "emergency_phone",
+            "qr_code",
             "joined_at",
             "is_active",
         )
-        read_only_fields = ("joined_at",)
+        read_only_fields = (
+            "qr_code",
+            "joined_at",
+        )
 
     def get_full_name(self, obj):
-        return obj.user.get_full_name() or obj.user.username
+        return (
+            obj.user.get_full_name()
+            or obj.user.username
+        )
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
-    member_name = serializers.CharField(
-        source="member.user.get_full_name",
-        read_only=True,
-    )
+    member_name = serializers.SerializerMethodField()
     plan_name = serializers.CharField(
         source="plan.name",
         read_only=True,
     )
-    days_remaining = serializers.IntegerField(read_only=True)
-    status = serializers.CharField(read_only=True)
+    days_remaining = serializers.IntegerField(
+        read_only=True,
+    )
+    status = serializers.CharField(
+        read_only=True,
+    )
     status_display = serializers.CharField(
         source="get_status_display",
         read_only=True,
@@ -120,6 +135,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
             "member_name",
             "plan",
             "plan_name",
+            "price_at_subscription",
             "start_date",
             "end_date",
             "days_remaining",
@@ -130,6 +146,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         )
         read_only_fields = (
             "id",
+            "price_at_subscription",
             "end_date",
             "days_remaining",
             "status",
@@ -137,14 +154,28 @@ class SubscriptionSerializer(serializers.ModelSerializer):
             "created_at",
         )
 
+    def get_member_name(self, obj):
+        return (
+            obj.member.user.get_full_name()
+            or obj.member.user.username
+        )
+
     def validate(self, attrs):
         member = attrs.get(
             "member",
-            getattr(self.instance, "member", None),
+            getattr(
+                self.instance,
+                "member",
+                None,
+            ),
         )
         plan = attrs.get(
             "plan",
-            getattr(self.instance, "plan", None),
+            getattr(
+                self.instance,
+                "plan",
+                None,
+            ),
         )
         start_date = attrs.get(
             "start_date",
@@ -186,9 +217,12 @@ class SubscriptionSerializer(serializers.ModelSerializer):
                 )
 
         if errors:
-            raise serializers.ValidationError(errors)
+            raise serializers.ValidationError(
+                errors,
+            )
 
         return attrs
+
 
 class PaymentSerializer(serializers.ModelSerializer):
     member_name = serializers.CharField(
@@ -225,48 +259,79 @@ class PaymentSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         subscription = attrs.get(
             "subscription",
-            getattr(self.instance, "subscription", None),
+            getattr(
+                self.instance,
+                "subscription",
+                None,
+            ),
         )
         amount = attrs.get(
             "amount",
-            getattr(self.instance, "amount", None),
+            getattr(
+                self.instance,
+                "amount",
+                None,
+            ),
         )
 
         errors = {}
 
-        if amount is not None and amount <= Decimal("0.00"):
+        if (
+            amount is not None
+            and amount <= Decimal("0.00")
+        ):
             errors["amount"] = (
                 "Le montant doit être supérieur à zéro."
             )
 
-        if subscription and amount and amount > Decimal("0.00"):
+        if (
+            subscription
+            and amount
+            and amount > Decimal("0.00")
+        ):
             payments = Payment.objects.filter(
                 subscription=subscription,
             )
 
             if self.instance:
-                payments = payments.exclude(pk=self.instance.pk)
+                payments = payments.exclude(
+                    pk=self.instance.pk,
+                )
 
             already_paid = payments.aggregate(
                 total=Sum("amount"),
             )["total"] or Decimal("0.00")
 
-            if already_paid + amount > subscription.plan.price:
+            if (
+                already_paid + amount
+                > subscription.price_at_subscription
+            ):
                 errors["amount"] = (
                     "Le total des paiements ne peut pas "
                     "dépasser le prix de la formule."
                 )
 
         if errors:
-            raise serializers.ValidationError(errors)
+            raise serializers.ValidationError(
+                errors,
+            )
 
         return attrs
 
     def get_remaining_amount(self, obj):
-        total_paid = obj.subscription.payments.aggregate(
-            total=Sum("amount"),
-        )["total"] or Decimal("0.00")
+        total_paid = (
+            obj.subscription.payments.aggregate(
+                total=Sum("amount"),
+            )["total"]
+            or Decimal("0.00")
+        )
 
-        remaining = obj.subscription.plan.price - total_paid
+        remaining = (
+            obj.subscription.price_at_subscription
+            - total_paid
+        )
 
-        return max(remaining, Decimal("0.00"))
+        return max(
+            remaining,
+            Decimal("0.00"),
+        )

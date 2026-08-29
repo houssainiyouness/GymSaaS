@@ -1,0 +1,191 @@
+.client-shell {
+  min-height: 100vh;
+  display: flex;
+  background: #0a0e12;
+  color: #f7f9fb;
+}
+
+.client-sidebar {
+  width: 232px;
+  min-height: 100vh;
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 18px 22px;
+  border-right: 1px solid #202730;
+  background: #0d1217;
+}
+
+.client-brand {
+  display: grid;
+  gap: 4px;
+  padding: 0 10px 27px;
+}
+.client-brand strong { font-size: 23px; font-weight: 950; letter-spacing: -1px; }
+.client-brand strong span { color: #ff5a1f; }
+.client-brand small { color: #747e89; font-size: 11px; }
+
+.client-nav { display: grid; gap: 7px; }
+.client-nav-link,
+.client-logout {
+  min-height: 47px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 13px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: #aeb6c0;
+  background: transparent;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.client-nav-link:hover,
+.client-logout:hover { background: #151b22; color: #fff; }
+.client-nav-link.active { background: rgba(255,90,31,.13); color: #ff6d30; border-color: rgba(255,90,31,.22); }
+.client-nav-link svg,
+.client-logout svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.client-logout { width: 100%; margin-top: auto; border-color: #252d36; }
+
+.client-main { width: calc(100% - 232px); margin-left: 232px; min-width: 0; }
+.client-topbar {
+  height: 78px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 30px;
+  border-bottom: 1px solid #202730;
+  background: rgba(10,14,18,.92);
+  backdrop-filter: blur(14px);
+}
+.client-topbar > div:first-child { display: grid; gap: 2px; }
+.client-topbar-label { color: #ff6a2a; font-size: 9px; font-weight: 900; letter-spacing: 1.4px; }
+.client-topbar strong { font-size: 14px; }
+.client-user-chip { display: flex; align-items: center; gap: 10px; color: #fff; }
+.client-user-chip > span { width: 39px; height: 39px; display: grid; place-items: center; border-radius: 50%; background: rgba(255,90,31,.13); color: #ff7b40; font-size: 12px; font-weight: 900; }
+.client-user-chip > div { display: grid; gap: 1px; }
+.client-user-chip small { color: #747e89; font-size: 10px; }
+.client-outlet { min-width: 0; }
+
+@media (max-width: 850px) {
+  .client-sidebar { width: 72px; padding-inline: 10px; }
+  .client-brand { padding-inline: 0; text-align: center; }
+  .client-brand strong { font-size: 0; }
+  .client-brand strong::before { content: "G"; font-size: 24px; color: #ff5a1f; }
+  .client-brand small, .client-nav-link span, .client-logout span { display: none; }
+  .client-nav-link, .client-logout { justify-content: center; padding: 0; }
+  .client-main { width: calc(100% - 72px); margin-left: 72px; }
+}
+
+@media (max-width: 560px) {
+  .client-sidebar {
+    width: 100%;
+    min-height: auto;
+    height: 66px;
+    position: fixed;
+    inset: auto 0 0 0;
+    padding: 7px 8px;
+    border-right: 0;
+    border-top: 1px solid #242b34;
+    flex-direction: row;
+    background: rgba(13,18,23,.97);
+    backdrop-filter: blur(14px);
+  }
+  .client-brand, .client-logout { display: none; }
+  .client-nav { width: 100%; grid-template-columns: repeat(6, 1fr); gap: 3px; }
+  .client-nav-link { min-height: 50px; border-radius: 8px; }
+  .client-nav-link svg { width: 18px; height: 18px; }
+  .client-main { width: 100%; margin-left: 0; padding-bottom: 76px; }
+  .client-topbar { height: 66px; padding: 0 15px; }
+  .client-user-chip > div { display: none; }
+}
+
+/* =====================================================
+   LANGUE + RTL ESPACE ADHÉRENT
+===================================================== */
+
+.client-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.client-topbar-intro {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+html[dir="rtl"] .client-shell {
+  direction: rtl;
+}
+
+html[dir="rtl"] .client-sidebar {
+  left: auto;
+  right: 0;
+  border-right: 0;
+  border-left: 1px solid #202730;
+}
+
+html[dir="rtl"] .client-main {
+  margin-left: 0;
+  margin-right: 232px;
+}
+
+html[dir="rtl"] .client-nav-link,
+html[dir="rtl"] .client-logout,
+html[dir="rtl"] .client-brand {
+  text-align: right;
+}
+
+html[dir="rtl"] .client-topbar,
+html[dir="rtl"] .client-outlet,
+html[dir="rtl"] .client-page {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .client-topbar-actions .language-switcher {
+  direction: ltr;
+}
+
+html[dir="rtl"] .client-user-chip {
+  direction: rtl;
+}
+
+html[dir="rtl"] .client-page input:not([type="email"]):not([type="number"]):not([type="date"]),
+html[dir="rtl"] .client-page textarea,
+html[dir="rtl"] .client-page select {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .client-page input[type="email"],
+html[dir="rtl"] .client-page input[type="number"],
+html[dir="rtl"] .client-page input[type="date"] {
+  direction: ltr;
+}
+
+@media (max-width: 850px) {
+  html[dir="rtl"] .client-main {
+    margin-left: 0;
+    margin-right: 72px;
+  }
+}
+
+@media (max-width: 560px) {
+  html[dir="rtl"] .client-main {
+    margin-right: 0;
+  }
+
+  .client-topbar-actions {
+    gap: 8px;
+  }
+}

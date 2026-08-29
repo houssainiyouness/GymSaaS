@@ -1,3 +1,4 @@
+import uuid
 from datetime import timedelta
 
 from django.conf import settings
@@ -12,6 +13,11 @@ class Member(models.Model):
         on_delete=models.CASCADE,
         related_name="member_profile",
         verbose_name="Compte utilisateur",
+    )
+    qr_code = models.UUIDField(
+        default=uuid.uuid4,
+        unique=True,
+        editable=False,
     )
     birth_date = models.DateField(
         blank=True,
@@ -93,6 +99,12 @@ class Subscription(models.Model):
         related_name="subscriptions",
         verbose_name="Formule",
     )
+    price_at_subscription = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        editable=False,
+        verbose_name="Prix à la souscription",
+    )
     start_date = models.DateField(
         default=timezone.localdate,
         verbose_name="Date de début",
@@ -128,6 +140,13 @@ class Subscription(models.Model):
             )
 
     def save(self, *args, **kwargs):
+        if (
+            self._state.adding
+            and self.plan_id
+            and self.price_at_subscription is None
+        ):
+            self.price_at_subscription = self.plan.price
+
         if not self.end_date and self.plan_id:
             self.end_date = self.start_date + timedelta(
                 days=self.plan.duration_days

@@ -1,0 +1,76 @@
+.register-page {
+  min-height: 100vh;
+  padding: 44px 28px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(255,90,31,.12), transparent 26%),
+    #090c10;
+}
+
+.register-shell {
+  width: min(1120px, 100%);
+  display: grid;
+  grid-template-columns: .82fr 1.18fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.register-intro { display: grid; justify-items: start; }
+.register-intro .brand { margin-bottom: 80px; }
+.register-intro h1 { margin: 14px 0; font-size: clamp(44px, 5vw, 70px); line-height: .98; letter-spacing: -3px; text-transform: uppercase; }
+.register-intro p { color: #98a1ac; line-height: 1.7; }
+.register-benefits { margin-top: 28px; display: grid; gap: 11px; color: #d1d6dc; font-size: 13px; }
+.register-benefits span::first-letter { color: #ff5a1f; }
+
+.register-card {
+  padding: 34px;
+  display: grid;
+  gap: 22px;
+  border: 1px solid #29313a;
+  border-radius: 20px;
+  background: #11161c;
+  box-shadow: 0 35px 90px rgba(0,0,0,.3);
+}
+
+.register-card h2 { margin: 6px 0 0; font-size: 34px; }
+.register-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.register-field { display: grid; gap: 7px; }
+.register-field.wide { grid-column: 1 / -1; }
+.register-field > span { font-size: 12px; font-weight: 750; }
+.register-field input { min-height: 48px; padding: 0 13px; outline: none; border: 1px solid #303844; border-radius: 10px; background: #0c1015; color: #fff; }
+.register-field input:focus { border-color: #ff5a1f; }
+.register-field small { color: #fca5a5; font-size: 11px; }
+.register-submit { width: 100%; }
+
+@media (max-width: 850px) {
+  .register-shell { grid-template-columns: 1fr; gap: 30px; }
+  .register-intro .brand { margin-bottom: 38px; }
+  .register-intro p, .register-benefits { display: none; }
+}
+
+@media (max-width: 560px) {
+  .register-page { padding: 24px 14px; }
+  .register-card { padding: 24px 18px; }
+  .register-grid { grid-template-columns: 1fr; }
+  .register-field.wide { grid-column: 1; }
+}
+
+.auth-language-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+html[dir="rtl"] .register-page,
+html[dir="rtl"] .register-shell,
+html[dir="rtl"] .register-card,
+html[dir="rtl"] .register-intro {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .register-card input:not([type="email"]),
+html[dir="rtl"] .register-card select {
+  text-align: right;
+}

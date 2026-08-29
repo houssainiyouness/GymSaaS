@@ -28,6 +28,7 @@ class SubscriptionAdmin(admin.ModelAdmin):
     list_display = (
         "member",
         "plan",
+        "price_at_subscription",
         "start_date",
         "end_date",
         "display_days_remaining",
@@ -40,6 +41,7 @@ class SubscriptionAdmin(admin.ModelAdmin):
         "member__user__last_name",
     )
     readonly_fields = (
+        "price_at_subscription",
         "created_at",
         "display_days_remaining",
         "display_status",

@@ -495,3 +495,160 @@ class MembersPermissionsTests(APITestCase):
             response.data[0]["reference"],
             "PAY-SEARCH-001",
         )
+
+    def test_subscription_price_is_copied_from_plan(self):
+        self.assertEqual(
+            self.subscription.price_at_subscription,
+            Decimal("300.00"),
+        )
+
+        self.plan.price = Decimal("450.00")
+        self.plan.save(
+            update_fields=(
+                "price",
+            ),
+        )
+        self.subscription.refresh_from_db()
+
+        self.assertEqual(
+            self.subscription.price_at_subscription,
+            Decimal("300.00"),
+        )
+
+    def test_subscription_api_ignores_submitted_price(self):
+        self.client.force_authenticate(
+            user=self.coordinator,
+        )
+
+        response = self.client.post(
+            reverse("subscription-list"),
+            {
+                "member": self.other_member.id,
+                "plan": self.plan.id,
+                "start_date": "2027-01-01",
+                "is_suspended": False,
+                "price_at_subscription": "1.00",
+            },
+            format="json",
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_201_CREATED,
+        )
+        self.assertEqual(
+            response.data["price_at_subscription"],
+            "300.00",
+        )
+
+    def test_payment_limit_uses_historical_price(self):
+        self.plan.price = Decimal("50.00")
+        self.plan.save(
+            update_fields=(
+                "price",
+            ),
+        )
+        self.client.force_authenticate(
+            user=self.coordinator,
+        )
+
+        response = self.client.post(
+            reverse("payment-list"),
+            {
+                "subscription": self.subscription.id,
+                "amount": "250.00",
+                "method": Payment.Method.CASH,
+                "reference": "HISTORICAL-PRICE",
+                "notes": "",
+            },
+            format="json",
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_201_CREATED,
+        )
+        self.assertEqual(
+            response.data["remaining_amount"],
+            Decimal("50.00"),
+        )
+
+    def test_coordinator_can_search_members(self):
+        self.client.force_authenticate(
+            user=self.coordinator,
+        )
+
+        response = self.client.get(
+            reverse("member-list"),
+            {
+                "search": "member1",
+            },
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+        )
+        self.assertEqual(
+            len(response.data),
+            1,
+        )
+        self.assertEqual(
+            response.data[0]["id"],
+            self.member.id,
+        )
+
+    def test_deactivating_member_deactivates_user(self):
+        self.client.force_authenticate(
+            user=self.coordinator,
+        )
+
+        response = self.client.patch(
+            reverse(
+                "member-detail",
+                kwargs={
+                    "pk": self.member.pk,
+                },
+            ),
+            {
+                "is_active": False,
+            },
+            format="json",
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+        )
+
+        self.member.refresh_from_db()
+        self.member_user.refresh_from_db()
+
+        self.assertFalse(self.member.is_active)
+        self.assertFalse(self.member_user.is_active)
+
+    def test_deleting_member_deletes_user_account(self):
+        user_id = self.other_user.pk
+
+        self.client.force_authenticate(
+            user=self.coordinator,
+        )
+
+        response = self.client.delete(
+            reverse(
+                "member-detail",
+                kwargs={
+                    "pk": self.other_member.pk,
+                },
+            ),
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_204_NO_CONTENT,
+        )
+        self.assertFalse(
+            User.objects.filter(
+                pk=user_id,
+            ).exists()
+        )
