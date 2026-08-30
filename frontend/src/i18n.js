@@ -72,6 +72,7 @@ const resources = {
         popularPlans: "Formules populaires",
         retry: "Réessayer",
         loading: "Chargement du dashboard…",
+        loadingError: "Impossible de charger le dashboard.",
         member: "Membre",
         plan: "Formule",
       },
@@ -97,11 +98,58 @@ const resources = {
         inactive: "Inactif",
         languageChoice: "Choix de la langue",
       },
+      publicNavigation: {
+        mainNavigation: "Navigation principale",
+        activities: "Activités",
+        coaching: "Coaching",
+        plans: "Formules",
+        gym: "La salle",
+        contact: "Contact",
+        login: "Connexion",
+        memberLogin: "Connexion adhérent",
+        register: "Je m’inscris",
+        openMenu: "Ouvrir le menu",
+        closeMenu: "Fermer le menu",
+      },
     },
   },
 
   ar: {
     translation: {
+      publicNavigation: {
+  mainNavigation:
+    "التنقل الرئيسي",
+
+  activities:
+    "الأنشطة",
+
+  coaching:
+    "التدريب",
+
+  plans:
+    "الاشتراكات",
+
+  gym:
+    "النادي",
+
+  contact:
+    "اتصل بنا",
+
+  login:
+    "تسجيل الدخول",
+
+  memberLogin:
+    "دخول العضو",
+
+  register:
+    "سجل الآن",
+
+  openMenu:
+    "فتح القائمة",
+
+  closeMenu:
+    "إغلاق القائمة",
+},
       navigation: {
         dashboard: "لوحة التحكم",
         members: "الأعضاء",
@@ -170,6 +218,7 @@ const resources = {
         popularPlans: "العروض الأكثر استخداماً",
         retry: "إعادة المحاولة",
         loading: "جاري تحميل لوحة التحكم…",
+        loadingError: "تعذر تحميل لوحة التحكم.",
         member: "عضو",
         plan: "العرض",
       },

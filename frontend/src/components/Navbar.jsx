@@ -8,185 +8,357 @@ import {
   useLocation,
 } from "react-router";
 
+import {
+  useTranslation,
+} from "react-i18next";
+
 import LanguageSwitcher from "./LanguageSwitcher";
 
 
 function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [compact, setCompact] = useState(false);
-  const location = useLocation();
+  const [
+    open,
+    setOpen,
+  ] = useState(false);
 
+  const [
+    compact,
+    setCompact,
+  ] = useState(false);
+
+  const location =
+    useLocation();
+
+  const {
+    t,
+  } = useTranslation();
+
+
+  /* =====================================================
+     NAVBAR COMPACTE AU SCROLL
+  ===================================================== */
 
   useEffect(() => {
-    const onScroll = () =>
-      setCompact(window.scrollY > 24);
+    const onScroll =
+      () => {
+        setCompact(
+          window.scrollY > 24,
+        );
+      };
+
 
     onScroll();
+
 
     window.addEventListener(
       "scroll",
       onScroll,
-      { passive: true },
+      {
+        passive: true,
+      },
     );
 
-    return () =>
+
+    return () => {
       window.removeEventListener(
         "scroll",
         onScroll,
       );
+    };
   }, []);
 
 
+  /* =====================================================
+     FERMER LE MENU APRÈS CHANGEMENT DE PAGE
+  ===================================================== */
+
   useEffect(() => {
     setOpen(false);
-  }, [location.pathname]);
+  }, [
+    location.pathname,
+  ]);
 
+
+  /* =====================================================
+     FERMETURE AVEC ESCAPE
+  ===================================================== */
 
   useEffect(() => {
     if (!open) {
       return undefined;
     }
 
-    const onKeyDown = (event) => {
-      if (event.key === "Escape") {
-        setOpen(false);
-      }
-    };
+
+    const onKeyDown =
+      (event) => {
+        if (
+          event.key === "Escape"
+        ) {
+          setOpen(false);
+        }
+      };
+
 
     window.addEventListener(
       "keydown",
       onKeyDown,
     );
 
-    return () =>
+
+    return () => {
       window.removeEventListener(
         "keydown",
         onKeyDown,
       );
-  }, [open]);
+    };
+  }, [
+    open,
+  ]);
 
 
-  const close = () => setOpen(false);
+  /* =====================================================
+     HELPERS
+  ===================================================== */
 
-  const homeSectionHref = (section) =>
-    location.pathname === "/"
-      ? `#${section}`
-      : `/#${section}`;
+  const close =
+    () => {
+      setOpen(false);
+    };
 
+
+  const homeSectionHref =
+    (section) =>
+      location.pathname === "/"
+        ? `#${section}`
+        : `/#${section}`;
+
+
+  /* =====================================================
+     RENDER
+  ===================================================== */
 
   return (
     <header
       className={
-        `public-navbar ${compact ? "compact" : ""}`
+        `public-navbar ${
+          compact
+            ? "compact"
+            : ""
+        }`
       }
     >
+
       <div className="public-nav-inner">
+
+        {/* =================================================
+            LOGO
+        ================================================= */}
+
         <Link
           className="brand public-brand"
           to="/"
           onClick={close}
         >
-          GYM<span>SAAS</span>
+          GYM
+          <span>
+            SAAS
+          </span>
         </Link>
 
 
+        {/* =================================================
+            NAVIGATION
+        ================================================= */}
+
         <nav
           className={
-            `public-nav-links ${open ? "is-open" : ""}`
+            `public-nav-links ${
+              open
+                ? "is-open"
+                : ""
+            }`
           }
-          aria-label="Navigation principale"
+          aria-label={
+            t(
+              "publicNavigation.mainNavigation",
+            )
+          }
         >
-          <a
-            href={homeSectionHref("activities")}
-            onClick={close}
-          >
-            Activités
-          </a>
 
           <a
-            href={homeSectionHref("coaching")}
+            href={
+              homeSectionHref(
+                "activities",
+              )
+            }
             onClick={close}
           >
-            Coaching
+            {t(
+              "publicNavigation.activities",
+            )}
           </a>
-
 
 
           <a
-            href={homeSectionHref("plans")}
+            href={
+              homeSectionHref(
+                "coaching",
+              )
+            }
             onClick={close}
           >
-            Formules
+            {t(
+              "publicNavigation.coaching",
+            )}
           </a>
 
-          <a
-            href={homeSectionHref("gym")}
-            onClick={close}
-          >
-            La salle
-          </a>
+
+          {/*
+            IMPORTANT :
+            "Coachs" a volontairement été supprimé
+            de la navbar.
+
+            La page /nos-coachs reste accessible
+            depuis la section Coaching de Home.jsx.
+          */}
+
 
           <a
-            href={homeSectionHref("contact")}
+            href={
+              homeSectionHref(
+                "plans",
+              )
+            }
             onClick={close}
           >
-            Contact
+            {t(
+              "publicNavigation.plans",
+            )}
           </a>
+
+
+          <a
+            href={
+              homeSectionHref(
+                "gym",
+              )
+            }
+            onClick={close}
+          >
+            {t(
+              "publicNavigation.gym",
+            )}
+          </a>
+
+
+          <a
+            href={
+              homeSectionHref(
+                "contact",
+              )
+            }
+            onClick={close}
+          >
+            {t(
+              "publicNavigation.contact",
+            )}
+          </a>
+
+
+          {/* =================================================
+              ACTIONS MOBILE
+          ================================================= */}
 
           <Link
             className="mobile-login-link"
             to="/login"
             onClick={close}
           >
-            Connexion adhérent
+            {t(
+              "publicNavigation.memberLogin",
+            )}
           </Link>
+
 
           <Link
             className="btn btn-primary mobile-join-link"
             to="/register"
             onClick={close}
           >
-            Je m’inscris
+            {t(
+              "publicNavigation.register",
+            )}
           </Link>
+
         </nav>
 
 
+        {/* =================================================
+            ACTIONS DESKTOP
+        ================================================= */}
+
         <div className="public-nav-actions">
+
           <LanguageSwitcher />
+
 
           <Link
             className="nav-login"
             to="/login"
           >
-            Connexion
+            {t(
+              "publicNavigation.login",
+            )}
           </Link>
+
 
           <Link
             className="btn btn-primary"
             to="/register"
           >
-            Je m’inscris
+            {t(
+              "publicNavigation.register",
+            )}
           </Link>
+
+
+          {/* =================================================
+              MENU MOBILE
+          ================================================= */}
 
           <button
             className="mobile-menu-button"
             type="button"
             aria-label={
               open
-                ? "Fermer le menu"
-                : "Ouvrir le menu"
+                ? t(
+                    "publicNavigation.closeMenu",
+                  )
+                : t(
+                    "publicNavigation.openMenu",
+                  )
             }
-            aria-expanded={open}
-            onClick={() =>
-              setOpen((value) => !value)
+            aria-expanded={
+              open
+            }
+            onClick={
+              () => {
+                setOpen(
+                  (value) =>
+                    !value,
+                );
+              }
             }
           >
             <span />
             <span />
             <span />
           </button>
+
         </div>
+
       </div>
+
     </header>
   );
 }
