@@ -436,31 +436,28 @@ function Home() {
               </p>
 
 
-              <div className="coaching-actions">
+            <div className="coaching-actions">
 
-                <Link
-                  className="btn btn-primary"
-                  to="/register"
-                >
-                  Créer mon espace
-                </Link>
+  <Link
+    className="btn btn-primary"
+    to="/register"
+  >
+    Créer mon espace
+  </Link>
 
 
-                <Link
-                  className="btn btn-coach-outline"
-                  to="/nos-coachs"
-                >
+  <Link
+    className="btn btn-coach-outline"
+    to="/nos-coachs"
+  >
+    Voir les coachs disponibles
 
-                  Voir les coachs
-                  disponibles
+    <span>
+      →
+    </span>
+  </Link>
 
-                  <span>
-                    →
-                  </span>
-
-                </Link>
-
-              </div>
+</div>
 
             </div>
 

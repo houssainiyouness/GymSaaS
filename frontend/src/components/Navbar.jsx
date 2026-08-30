@@ -110,12 +110,7 @@ function Navbar() {
             Coaching
           </a>
 
-          <Link
-            to="/nos-coachs"
-            onClick={close}
-          >
-            Coachs
-          </Link>
+
 
           <a
             href={homeSectionHref("plans")}
